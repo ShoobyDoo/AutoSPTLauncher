@@ -33,5 +33,6 @@ def main():
     except getopt.error as err: print(str(err))
     server = multiprocessing.Process(target=server_thread, args=(server_executable, launcher_executable))
     server.start()
+    os.system("pause")
 if __name__ == "__main__":
     main()
