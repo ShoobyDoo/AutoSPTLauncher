@@ -1,4 +1,4 @@
-import subprocess, multiprocessing, time, getopt, sys
+import subprocess, multiprocessing, time, getopt, sys, os
 __author__      = "Doomlad"
 __copyright__   = "Copyright © 2022"
 __version__     = "1.0.0-alpha"
