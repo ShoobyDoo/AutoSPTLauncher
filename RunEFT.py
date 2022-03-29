@@ -11,14 +11,14 @@ def server_thread(server_executable, launcher_executable):
             print(line.decode(), end='')
             if "Server is running" in line.decode() and not server_ready:
                 server_ready = True
-                print("[Starting launcher]", end='\r\b')
+                print("[Starting launcher...]", end='\r\b')
                 server = subprocess.Popen(launcher_executable)
                 time.sleep(2)
-            print("[Waiting for server]", end='\r\b') if not server_ready else print("[Listening for client]", end='\r\b')
+            print("[Waiting for server...]", end='\r\b') if not server_ready else print("[Listening for client]", end='\r\b')
         return_code = server.wait()
         if return_code: raise subprocess.CalledProcessError(return_code, server_executable)
-    except FileNotFoundError: 
-        print("Error: File not found, please supply a valid path to your server/launcher executables.")
+    except FileNotFoundError:
+        print("Error: File not found, please supply a valid path to your server/launcher executables.\n(If you haven't already, drop this into your Tarkov SPT folder.)")
         os.system("pause")
 def main():
     print(f"Escape from Tarkov - SPT AKI Auto-Launcher\nVersion: {__version__} {__copyright__} {__author__}")
@@ -32,10 +32,11 @@ def main():
                 exit()
             elif arg in ("-s", "--server"): server_executable = val
             elif arg in ("-l", "--launcher"): launcher_executable = val
-    except getopt.error as err: 
+    except getopt.error as err:
         print(str(err))
         os.system("pause")
     server = multiprocessing.Process(target=server_thread, args=(server_executable, launcher_executable))
     server.start()
 if __name__ == "__main__":
+    multiprocessing.freeze_support()
     main()
