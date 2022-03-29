@@ -11,10 +11,10 @@ def server_thread(server_executable, launcher_executable):
             print(line.decode(), end='')
             if "Server is running" in line.decode() and not server_ready:
                 server_ready = True
-                print("[Starting launcher...]", end='\r\b')
+                print("[Starting launcher]", end='\r\b')
                 server = subprocess.Popen(launcher_executable)
                 time.sleep(2)
-            print("[Waiting for server...]", end='\r\b') if not server_ready else print("[Listening for client]", end='\r\b')
+            print("[Waiting for server]", end='\r\b') if not server_ready else print("[Listening for client]", end='\r\b')
         return_code = server.wait()
         if return_code: raise subprocess.CalledProcessError(return_code, server_executable)
     except FileNotFoundError: 
